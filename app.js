@@ -24,8 +24,8 @@ app.use(express.static('public'));
 
 
 // MongoDB connection for the original MongoDB part
-//const mongoUri = "mongodb+srv://tvseries200413:SATYAM13@smsd.qqpws0x.mongodb.net/?retryWrites=true&w=majority&appName=SMSD";
-const mongoUri = "mongodb://localhost:27017/mudata";
+const mongoUri = "mongodb+srv://tvseries200413:SATYAM13@smsd.qqpws0x.mongodb.net/?retryWrites=true&w=majority&appName=SMSD";
+//const mongoUri = "mongodb://localhost:27017/mudata";
 
 let mongoClient;
 let mdata;
