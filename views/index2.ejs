@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Bill Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            line-height: 1.6;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+        h3{
+           color: #2c3e50; 
+           text-align: center;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 400px;
+            max-width: 600px;
+        }
+        
+        .form-row {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        label {
+            display: inline-block;
+            width: 250px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            background-color: white;
+        }
+        
+        input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .poster-preview {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            height: 450px;
+            margin-top: 30px;
+            border: 1px solid #ddd;
+        }
+        
+        .debug-info {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+            font-family: monospace;
+        }
+        
+        .debug-info h2, .debug-info h3 {
+            color: #3498db;
+            margin: 15px 0 10px;
+        }
+        
+        .debug-info pre {
+            white-space: pre-wrap;
+            background-color: #34495e;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        
+        .debug-info a {
+            color: #1abc9c;
+            text-decoration: none;
+        }
+        
+        .debug-info a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            form {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            label {
+                width: 100%;
+            }
+            
+            input[type="text"],
+            input[type="number"],
+            input[type="date"],
+            select {
+                width: 100%;
+            }
+        }
+
+  /* Navigation Bar - Fixed Dimensions */
+nav {
+    background-color: #2c3e50;
+    height: 70px; /* Fixed height */
+    width: 100%; /* Full width */
+    padding: 15px 0;
+    margin: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    height: 100%; /* Takes full height of nav */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    height: 100%; /* Ensures links align vertically */
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0 15px;
+    height: 100%; /* Full height for clickable area */
+    display: flex;
+    align-items: center; /* Centers text vertically */
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #3498db;
+}
+
+/* Logo/Title Styling (Optional) */
+.nav-title {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    height: 100%; /* Ensures title aligns with nav height */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    nav {
+        height: auto; /* Adjusts height for stacked layout */
+        padding: 10px 0;
+    }
+    
+    .nav-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .nav-links {
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    
+    .nav-links a {
+        padding: 8px 12px;
+        height: auto;
+    }
+}
+    </style>
+</head>
+<body>
+ 
+    <nav>
+        <div class="nav-container">
+            <h1 style="color: white; font-size: 1.5rem;">Satyam Movie & Series Bill System</h1>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/show">my contant</a>
+                <a href="/display">my list</a>
+                <a href="/logout">logout</a>
+            </div>
+        </div>
+    </nav>  
+
+    <h1>Movie Bill Generator</h1>
+    
+    <div class="container">
+        <form action="/generate_bill" method="POST">
+            <div class="form-row">
+                <label for="name">Name of movie or series:</label>
+                <input type="text" name="name" value="<%= data && data.Title ? data.Title : 'N/A' %>" required>
+            </div>
+            
+            <div class="form-row">
+                <label for="content_type">Type (movie or series):</label>
+                <select name="content_type" required>
+                    <option value="" disabled selected>-- select an option --</option>
+                    <option value="movie">Movie</option>
+                    <option value="series">Series</option>
+                </select>
+            </div>
+            
+            <div class="form-row">
+                <label for="episodes">Number of episodes:</label>
+                <input type="number" name="episodes" value="<%= ep || 1 %>" min="1" required>
+            </div>
+            
+            <div class="form-row">
+                <label for="episode_runtime">Average runtime of an episode (minutes):</label>
+                <input type="number" name="episode_runtime" value="<%= ru || 0 %>" min="1" required>
+            </div>
+            
+            <div class="form-row">
+                <label for="release_date">Release date:</label>
+                <input type="date" name="release_date" value="<%= Released || '2000-01-01' %>" required>
+            </div>
+            
+            <div class="form-row">
+                <label for="imdb_rating">IMDb rating:</label>
+                <input type="number" step="0.1" min="0" max="10" name="imdb_rating" value="<%= data && data.imdbRating ? data.imdbRating : 'N/A' %>" required>
+            </div>
+            
+            <input type="hidden" name="poster" value="<%= data && data.Poster ? data.Poster : 'N/A' %>">
+            <input type="submit" value="Generate Bill">
+        </form>
+
+        <% if (data && data.Poster && data.Poster !== 'N/A') { %>
+            <div class="tt">
+            <div class="poster-preview" 
+                 style="background-image: url('<%= data.Poster %>');">
+            </div>
+             <% if (data && data.imdbID) { %>
+               
+                <a href="https://www.imdb.com/title/<%= data.imdbID %>" target="_blank">
+                    <h3>IMDb Link</h3>
+                </a>
+            <% } %>
+            </div>
+        <% } %>
+    </div>
+
+    <% if (process.env.NODE_ENV === 'development') { %>
+        <div class="debug-info">
+            <h2>Debug Information</h2>
+            <h3>OMDB Data:</h3>
+            <pre><%= JSON.stringify(data, null, 2) %></pre>
+            <h3>TVMaze Data:</h3>
+            <pre><%= JSON.stringify(data2, null, 2) %></pre>
+    <% } %>        
+        </div>
+    
+</body>
+</html>

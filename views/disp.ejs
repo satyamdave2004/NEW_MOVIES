@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Reset default table styles */
+        body,
+        table {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Apply dark background */
+        body {
+            background-color: #05060a;
+            color: #fff;
+        }
+
+        /* Center align table */
+        table {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #555;
+        }
+
+        /* Style table headers */
+        th {
+            background-color: #271f27;
+            color: #abd5f4;
+            padding: 10px;
+            border: 1px solid #555;
+        }
+
+        /* Style table cells */
+        td {
+            padding: 10px;
+            color: #b9df84;
+            border: 1px solid #555;
+            text-align: center;
+        }
+
+        /* Alternating row colors */
+        tr:nth-child(even) {
+            background-color: #333;
+        }
+        tr:nth-child(odd) {
+            background-color: rgb(58, 24, 58);
+        }
+
+        /* Style links */
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        /* Navigation Bar Styles */
+        nav {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: #3498db;
+        }
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <h1 style="color: white; font-size: 1.5rem;">Satyam Movie & Series Bill System</h1>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/show">my contant</a>
+                <a href="/display">my list</a>
+                <a href="/logout">logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <table >
+        <thead >
+            <tr>
+                <th>SRNO</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>No of Ep</th>
+                <th>Runtime (minutes)</th>
+                <th>Release Date</th>
+                <th>IMDb Rating</th>
+                <th>Total Runtime (minutes)</th>
+                <th>Charge</th>
+                <th>SMST</th>
+                <th>Total Charge</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% dt.forEach(function(i, index) { %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= i.name %></td>
+                    <td><%= i.ctyp %></td>
+                    <td><%= i.ep %></td>
+                    <td><%= i.rtime %></td>
+                    <td><%= i.date %></td>
+                    <td><%= i.rating %></td>
+                    <td><%= i.trtime %></td>
+                    <td>₹<%= i.charge %></td>
+                    <td>₹<%= i.smst %></td>
+                    <td>₹<%= i.total_charges %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>
